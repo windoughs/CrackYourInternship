@@ -1,0 +1,8 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hp={}
+        for i in range(len(nums)):
+            t=target-nums[i]
+            if t in hp:
+                return(hp[t],i)
+            hp[nums[i]]=i
