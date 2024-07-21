@@ -1,0 +1,23 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxx = 0;
+        int diff = 0 , min = prices[0];
+        int n = prices.length;
+        boolean last = true;
+        for(int i = 1 ; i < n ; i++){
+            if(prices[i] - min > diff){
+                diff = Math.max(diff , prices[i] - min);
+            //    System.out.println("buy");
+               last = true;
+            }else{
+                // System.out.println("sell");
+                min = prices[i];
+                maxx += diff;
+                diff = 0;
+                last = false;
+            }
+        }
+        if(last) maxx += diff;
+        return maxx;
+    }
+}
