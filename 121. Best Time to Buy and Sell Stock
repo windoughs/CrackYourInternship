@@ -1,0 +1,22 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int diff = 0;
+        int n = prices.length;
+        Stack<Integer> st = new Stack<Integer>();
+        int[] nge = new int[n];
+        for(int i = n-1 ; i >= 0 ; i--){
+            while(!st.isEmpty() && st.peek() <= prices[i]){
+                st.pop();
+            }
+            nge[i] = st.isEmpty() ? -1 : st.peek();
+            if(st.isEmpty()) st.push(prices[i]);
+        }
+        System.out.println(Arrays.toString(nge));
+        for(int i = 0 ; i < n ; i++){
+            if(nge[i] != -1){
+                diff = Math.max(diff , nge[i] - prices[i]);
+            }
+        }
+        return diff;
+    }
+}
