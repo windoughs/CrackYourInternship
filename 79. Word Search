@@ -1,0 +1,32 @@
+Question : https://leetcode.com/problems/word-search/description/
+
+Code:
+
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+        boolean[][] visited = new boolean[n][m];
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < m ; j++){
+                if(board[i][j] == word.charAt(0)){
+                    if(find(board,word,visited,i,j,1)) return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean find(char[][] board , String word,boolean[][] visited,int s , int e,int len){
+        //base condition
+        if(len == word.length()) return true;
+        if(visited[s][e]) return false;
+        visited[s][e] = true;
+        if( (s > 0 && board[s-1][e] == word.charAt(len) && visited[s-1][e] == false && find(board,word,visited,s-1,e,len+1)) ||
+            (s < board.length-1 && board[s+1][e] == word.charAt(len) && visited[s+1][e] == false && find(board,word,visited,s+1,e,len+1)) ||
+            (e > 0 && board[s][e-1] == word.charAt(len) && visited[s][e-1] == false && find(board,word,visited,s,e-1,len+1) )||
+            (e < board[0].length-1 && board[s][e+1] == word.charAt(len)  && visited[s][e+1] == false && find(board,word,visited,s,e+1,len+1))
+        ) return true;
+        visited[s][e] = false;
+        return false;
+    }
+}
