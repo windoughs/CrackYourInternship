@@ -1,0 +1,24 @@
+Question -> https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+
+Code ->
+
+class Solution {
+    public int largestRectangleArea(int[] h) {
+        Stack<Integer> st = new Stack<Integer>();
+        int ans = 0;
+        for(int i =  0; i < h.length ; i++){
+            while(!st.isEmpty() && h[st.peek()] >= h[i]){
+                int l = st.pop();
+                int area = h[l] * (st.isEmpty() ? i : i-st.peek()- 1);
+                ans = Math.max(ans,area);
+            }
+            st.push(i);
+        }
+        while(!st.isEmpty()){
+            int j = st.pop();
+            int a = h[j] * (st.isEmpty() ? h.length : h.length - st.peek() - 1);
+            ans = Math.max(ans,a);
+        }
+        return ans;
+    }
+}
